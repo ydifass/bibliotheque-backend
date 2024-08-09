@@ -19,6 +19,10 @@ public class Book {
 
     private String title;
 
+    private String author;
+
+    private String type;
+
     public void updateNonNullFields(Book updatedBook) {
         BeanUtils.copyProperties(updatedBook, this, Utils.getNullPropertyNames(updatedBook));
     }
