@@ -20,7 +20,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public void deleteBookById(String id) {
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
     }
 
