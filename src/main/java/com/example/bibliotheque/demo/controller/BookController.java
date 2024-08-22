@@ -2,11 +2,13 @@ package com.example.bibliotheque.demo.controller;
 
 import com.example.bibliotheque.demo.data.domain.Book;
 import com.example.bibliotheque.demo.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/books/api")
@@ -17,9 +19,16 @@ public class BookController {
 
     private final BookService bookService;
 
+    @Operation(summary = "Get paginated list of books")
     @GetMapping("/book-list")
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public Page<Book> getAllBooks(
+        @Parameter(in = ParameterIn.QUERY, name = "page", required = false)
+            @RequestParam(defaultValue = "0", required = false)
+            int page,
+        @Parameter(in = ParameterIn.QUERY, name = "size", required = false)
+            @RequestParam(defaultValue = "8", required = false)
+            int size) {
+        return bookService.getAllBooks(page, size);
     }
 
     @PostMapping("/add-book")

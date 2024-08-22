@@ -3,6 +3,9 @@ package com.example.bibliotheque.demo.service;
 import com.example.bibliotheque.demo.data.domain.Book;
 import com.example.bibliotheque.demo.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +15,9 @@ import java.util.List;
 public class BookService {
 
     private final BookRepository bookRepository;
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public Page<Book> getAllBooks(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return bookRepository.getAllBooks(pageable);
     }
 
     public Book addBook(Book book) {
