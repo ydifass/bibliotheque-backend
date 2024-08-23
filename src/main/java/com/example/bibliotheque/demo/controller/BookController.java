@@ -1,5 +1,6 @@
 package com.example.bibliotheque.demo.controller;
 
+import com.example.bibliotheque.demo.data.DTO.BookDTO;
 import com.example.bibliotheque.demo.data.domain.Book;
 import com.example.bibliotheque.demo.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books/api")
@@ -21,11 +24,11 @@ public class BookController {
 
     @Operation(summary = "Get paginated list of books")
     @GetMapping("/book-list")
-    public Page<Book> getAllBooks(
-        @Parameter(in = ParameterIn.QUERY, name = "page", required = false)
+    public Page<BookDTO> getAllBooks(
+        @Parameter(in = ParameterIn.QUERY, name = "page")
             @RequestParam(defaultValue = "0", required = false)
             int page,
-        @Parameter(in = ParameterIn.QUERY, name = "size", required = false)
+        @Parameter(in = ParameterIn.QUERY, name = "size")
             @RequestParam(defaultValue = "8", required = false)
             int size) {
         return bookService.getAllBooks(page, size);
