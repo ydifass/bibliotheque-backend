@@ -1,6 +1,6 @@
 package com.example.bibliotheque.demo.common.mapper;
 
-import com.example.bibliotheque.demo.Category;
+import com.example.bibliotheque.demo.data.domain.Category;
 import com.example.bibliotheque.demo.data.DTO.BookDTO;
 import com.example.bibliotheque.demo.data.domain.Book;
 import org.mapstruct.*;

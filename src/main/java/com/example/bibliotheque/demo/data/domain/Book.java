@@ -1,6 +1,5 @@
 package com.example.bibliotheque.demo.data.domain;
 
-import com.example.bibliotheque.demo.Category;
 import com.example.bibliotheque.demo.common.utils.Utils;
 
 import jakarta.persistence.*;
