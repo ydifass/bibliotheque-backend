@@ -25,13 +25,19 @@ public class BookController {
     @Operation(summary = "Get paginated list of books")
     @GetMapping("/book-list")
     public Page<BookDTO> getAllBooks(
+        @Parameter(in = ParameterIn.QUERY, name = "sortBy")
+            @RequestParam(defaultValue = "title", required = false)
+            String sortBy,
+        @Parameter(in = ParameterIn.QUERY, name = "sortBy")
+            @RequestParam(defaultValue = "ASC", required = false)
+            String sortDirection,
         @Parameter(in = ParameterIn.QUERY, name = "page")
             @RequestParam(defaultValue = "0", required = false)
             int page,
         @Parameter(in = ParameterIn.QUERY, name = "size")
             @RequestParam(defaultValue = "8", required = false)
             int size) {
-        return bookService.getAllBooks(page, size);
+        return bookService.getAllBooks(page, size, sortBy, sortDirection);
     }
 
     @PostMapping("/add-book")

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -18,8 +19,14 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    public Page<BookDTO> getAllBooks(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<BookDTO> getAllBooks(int page, int size, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(sortBy);
+        if (sortDirection.equalsIgnoreCase("desc")) {
+            sort = sort.descending();
+        } else {
+            sort = sort.ascending();
+        }
+        Pageable pageable = PageRequest.of(page, size, sort);
         Page<Book> books = bookRepository.getAllBooks(pageable);
         return bookMapper.convertToBookDTOPage(books);
     }
