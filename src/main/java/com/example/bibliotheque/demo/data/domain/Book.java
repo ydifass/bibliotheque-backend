@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
 
+import java.time.Instant;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,8 @@ public class Book {
     private String title;
 
     private String author;
+
+    private Instant publicationDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

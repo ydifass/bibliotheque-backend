@@ -2,6 +2,8 @@ package com.example.bibliotheque.demo.data.DTO;
 
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,5 +17,7 @@ public class BookDTO {
     private String author;
 
     private String category;
+
+    private Instant publicationDate;
 
 }

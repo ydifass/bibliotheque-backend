@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/books/api")
@@ -36,8 +36,14 @@ public class BookController {
             int page,
         @Parameter(in = ParameterIn.QUERY, name = "size")
             @RequestParam(defaultValue = "8", required = false)
-            int size) {
-        return bookService.getAllBooks(page, size, sortBy, sortDirection);
+            int size,
+        @Parameter(in = ParameterIn.QUERY, name = "startDate")
+            @RequestParam(defaultValue = "", required = false)
+            Instant startDate,
+        @Parameter(in = ParameterIn.QUERY, name = "endDate")
+            @RequestParam(defaultValue = "", required = false)
+            Instant endDate){
+        return bookService.getAllBooks(page, size, sortBy, sortDirection, startDate, endDate);
     }
 
     @PostMapping("/add-book")

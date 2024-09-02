@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    public Page<BookDTO> getAllBooks(int page, int size, String sortBy, String sortDirection) {
+    public Page<BookDTO> getAllBooks(int page, int size, String sortBy, String sortDirection, Instant startDate, Instant endDate) {
         Sort sort = Sort.by(sortBy);
         if (sortDirection.equalsIgnoreCase("desc")) {
             sort = sort.descending();
@@ -27,7 +29,7 @@ public class BookService {
             sort = sort.ascending();
         }
         Pageable pageable = PageRequest.of(page, size, sort);
-        Page<Book> books = bookRepository.getAllBooks(pageable);
+        Page<Book> books = bookRepository.getAllBooks(startDate, endDate, pageable);
         return bookMapper.convertToBookDTOPage(books);
     }
 
